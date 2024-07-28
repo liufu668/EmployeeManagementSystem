@@ -77,6 +77,7 @@ public class LoginController {
     }
 
     @ApiOperation("注册")
+    @ResponseBody
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public CommonResult register(@RequestBody User user,HttpServletRequest request,HttpServletResponse response){
         CommonResult commonResult = new CommonResult();
