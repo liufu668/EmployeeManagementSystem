@@ -1,7 +1,7 @@
 CREATE DATABASE hrms;
 USE hrms;
 CREATE TABLE `user` (
-  `id` int NOT NULL COMMENT '主键',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username` varchar(20) NOT NULL COMMENT '用户名',
   `realname` varchar(45) DEFAULT NULL COMMENT '真实姓名',
   `last_login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
