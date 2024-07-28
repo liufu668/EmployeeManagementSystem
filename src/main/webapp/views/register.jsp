@@ -81,18 +81,14 @@
                 data: JSON.stringify(user),//传递json类型的参数
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
-                // success: function (result) {这部分代码无法执行,找不出问题
-                //     alert("接收结果")
-                //     if(result.code==COMMON_SUCCESS_CODE){
-                //         alert("注册成功")
-                //         location.href = "/login"
-                //     }else{
-                //         alert("注册失败")
-                //         $("#registermsg")[0].innerHTML = result.msg;//显示错误信息
-                //     }
-                // }
+                success: function (result) {
+                    if(result.code==COMMON_SUCCESS_CODE){
+                        location.href = "/login"
+                    }else{
+                        $("#registermsg")[0].innerHTML = result.msg;//显示错误信息
+                    }
+                }
             })
-            location.href = "/login"
             return false;//拦截layui自带的提交
         })
     });
