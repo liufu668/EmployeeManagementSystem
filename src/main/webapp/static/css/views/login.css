@@ -1,0 +1,102 @@
+/* 公共属性 */
+body {
+    font-size: 14px;
+    color: #666;
+}
+.login_center {
+    text-align: center;
+}
+
+/* 间距 */
+.hazel_pad_01 {
+    padding: 5px 20px;
+}
+.hazel_mar_01 {
+    margin-top: 20px;
+}
+.hazel_mar_02 {
+    margin-top: 30px;
+}
+.layui-input {
+    padding-left: 35px;
+}
+.hint span {
+    color: #ff5943;
+}
+
+/* 登录表单 */
+/*z-index原本为99999999,代表,登陆表单优先在前面,但有些错误弹窗警告需要在表单前,所以随便改成了小值1*/
+.login_main {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 450px;
+    height: 350px;
+    position: absolute;
+    left: 50%; /* 居中 */
+    top: 50%; /* 居中 */
+    transform: translate(-50%, -50%); /* 使用transform进行居中 */
+    z-index: 1;
+}
+
+.login_icon {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    font-size: 20px;
+}
+
+.login_vercode {
+    line-height: 35px;
+    padding-left: 30px;
+    font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+    .login_main {
+        width: 100%;
+        height: 350px;
+        right: 0;
+        left: 0; /* 将left设为0以兼容小屏幕 */
+        transform: none; /* 移除transform以兼容小屏幕 */
+    }
+}
+
+/* 渐变动画 */
+@-webkit-keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+@-moz-keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/* 旋转动画 */
+@keyframes move {
+    100% {
+        transform: translate3d(0, 0, 1px) rotate(360deg);
+    }
+}
