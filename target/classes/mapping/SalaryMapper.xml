@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.hrms.mapper.SalaryMapper">
+    <resultMap id="BaseResultMap" type="com.study.hrms.entity.Salary">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+        <result column="base_salary" jdbcType="DOUBLE" property="baseSalary" />
+        <result column="merits_salary" jdbcType="DOUBLE" property="meritsSalary" />
+        <result column="award_salary" jdbcType="DOUBLE" property="awardSalary" />
+        <result column="transport_subsidy" jdbcType="DOUBLE" property="transportSubsidy" />
+        <result column="meal_subsidy" jdbcType="DOUBLE" property="mealSubsidy" />
+        <result column="phone_subsidy" jdbcType="DOUBLE" property="phoneSubsidy" />
+        <result column="insurance" jdbcType="DOUBLE" property="insurance" />
+        <result column="tax" jdbcType="DOUBLE" property="tax" />
+        <result column="other_subsidy" jdbcType="DOUBLE" property="otherSubsidy" />
+        <result column="other_cut" jdbcType="DOUBLE" property="otherCut" />
+        <result column="belong_month" jdbcType="VARCHAR" property="belongMonth" />
+    </resultMap>
+    <resultMap id="VOResultMap" type="com.study.hrms.vo.SalaryVO">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="base_salary" jdbcType="DOUBLE" property="baseSalary" />
+        <result column="merits_salary" jdbcType="DOUBLE" property="meritsSalary" />
+        <result column="award_salary" jdbcType="DOUBLE" property="awardSalary" />
+        <result column="transport_subsidy" jdbcType="DOUBLE" property="transportSubsidy" />
+        <result column="meal_subsidy" jdbcType="DOUBLE" property="mealSubsidy" />
+        <result column="phone_subsidy" jdbcType="DOUBLE" property="phoneSubsidy" />
+        <result column="insurance" jdbcType="DOUBLE" property="insurance" />
+        <result column="tax" jdbcType="DOUBLE" property="tax" />
+        <result column="other_subsidy" jdbcType="DOUBLE" property="otherSubsidy" />
+        <result column="other_cut" jdbcType="DOUBLE" property="otherCut" />
+        <result column="belong_month" jdbcType="VARCHAR" property="belongMonth" />
+        <association property="employee" javaType="com.study.hrms.vo.EmployeeVO">
+            <id column="em_id" property="id"/>
+            <result column="em_name" property="emName"/>
+            <result column="dept_name" property="deptName"/>
+            <result column="dept_id" property="deptId"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        id,
+       	  	      	employee_id,
+       	  	      	base_salary,
+       	  	      	merits_salary,
+       	  	      	award_salary,
+       	  	      	transport_subsidy,
+       	  	      	meal_subsidy,
+       	  	      	phone_subsidy,
+       	  	      	insurance,
+       	  	      	tax,
+       	  	      	other_subsidy,
+       	  	    	  	other_cut,
+       	  	    	  	belong_month
+
+    </sql>
+    <insert id="insertSelective" parameterType="com.study.hrms.entity.Salary">
+        insert into salary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+            <if test="baseSalary != null">
+                base_salary,
+            </if>
+            <if test="meritsSalary != null">
+                merits_salary,
+            </if>
+            <if test="awardSalary != null">
+                award_salary,
+            </if>
+            <if test="transportSubsidy != null">
+                transport_subsidy,
+            </if>
+            <if test="mealSubsidy != null">
+                meal_subsidy,
+            </if>
+            <if test="phoneSubsidy != null">
+                phone_subsidy,
+            </if>
+            <if test="insurance != null">
+                insurance,
+            </if>
+            <if test="tax != null">
+                tax,
+            </if>
+            <if test="otherSubsidy != null">
+                other_subsidy,
+            </if>
+            <if test="otherCut != null">
+                other_cut,
+            </if>
+            <if test="belongMonth != null">
+                belong_month
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER}
+            </if>
+            <if test="employeeId != null">
+                #{employeeId,jdbcType=INTEGER},
+            </if>
+            <if test="baseSalary != null">
+                #{baseSalary,jdbcType=DOUBLE},
+            </if>
+            <if test="meritsSalary != null">
+                #{meritsSalary,jdbcType=DOUBLE},
+            </if>
+            <if test="awardSalary != null">
+                #{awardSalary,jdbcType=DOUBLE},
+            </if>
+            <if test="transportSubsidy != null">
+                #{transportSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="mealSubsidy != null">
+                #{mealSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="phoneSubsidy != null">
+                #{phoneSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="insurance != null">
+                #{insurance,jdbcType=DOUBLE},
+            </if>
+            <if test="tax != null">
+                #{tax,jdbcType=DOUBLE},
+            </if>
+            <if test="otherSubsidy != null">
+                #{otherSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="otherCut != null">
+                #{otherCut,jdbcType=DOUBLE},
+            </if>
+            <if test="belongMonth != null">
+                #{belongMonth,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.study.hrms.entity.Salary">
+        update salary
+        <set>
+            <if test="employeeId != null">
+                employee_id = #{employeeId,jdbcType=INTEGER},
+            </if>
+            <if test="baseSalary != null">
+                base_salary = #{baseSalary,jdbcType=DOUBLE},
+            </if>
+            <if test="meritsSalary != null">
+                merits_salary = #{meritsSalary,jdbcType=DOUBLE},
+            </if>
+            <if test="awardSalary != null">
+                award_salary = #{awardSalary,jdbcType=DOUBLE},
+            </if>
+            <if test="transportSubsidy != null">
+                transport_subsidy = #{transportSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="mealSubsidy != null">
+                meal_subsidy = #{mealSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="phoneSubsidy != null">
+                phone_subsidy = #{phoneSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="insurance != null">
+                insurance = #{insurance,jdbcType=DOUBLE},
+            </if>
+            <if test="tax != null">
+                tax = #{tax,jdbcType=DOUBLE},
+            </if>
+            <if test="otherSubsidy != null">
+                other_subsidy = #{otherSubsidy,jdbcType=DOUBLE},
+            </if>
+            <if test="otherCut != null">
+                other_cut = #{otherCut,jdbcType=DOUBLE},
+            </if>
+            <if test="belongMonth != null">
+                belong_month = #{belongMonth,jdbcType=VARCHAR}
+            </if>
+        </set>
+
+        where
+            id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteByPrimaryId" parameterType="java.lang.Integer">
+        delete from salary
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="list" parameterType="com.study.hrms.qo.SalaryQO" resultMap="VOResultMap">
+        select sa.*,em.id em_id,em.em_name,dp.deptname dept_name,em.dept dept_id
+        from salary sa
+        left join employee em on sa.employee_id = em.id
+        left join department dp on em.dept = dp.id
+        where 1=1
+        <if test="employeeId != null">
+            and sa.employee_id = #{employeeId,jdbcType=INTEGER}
+        </if>
+        <if test="deptId != null">
+            and em.dept = #{deptId,jdbcType=INTEGER}
+        </if>
+        <if test="belongMonth != null">
+            and sa.belong_month = #{belongMonth,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="selectVOById" parameterType="java.lang.Integer" resultMap="VOResultMap">
+        select sa.*,em.id em_id,em.em_name,dp.deptname dept_name,em.dept dept_id
+        from salary sa
+        left join employee em on sa.employee_id = em.id
+        left join department dp on em.dept = dp.id
+        where sa.id = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>

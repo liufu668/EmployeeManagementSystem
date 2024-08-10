@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.hrms.mapper.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.study.hrms.entity.Employee">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="em_name" jdbcType="VARCHAR" property="emName" />
+        <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+        <result column="sex" jdbcType="CHAR" property="sex" />
+        <result column="political_status" jdbcType="INTEGER" property="politicalStatus" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="education" jdbcType="INTEGER" property="education" />
+        <result column="university" jdbcType="VARCHAR" property="university" />
+        <result column="station" jdbcType="VARCHAR" property="station" />
+        <result column="salary_level" jdbcType="INTEGER" property="salaryLevel" />
+        <result column="emnum" jdbcType="VARCHAR" property="emnum" />
+        <result column="dept" jdbcType="INTEGER" property="dept" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+    </resultMap>
+    <resultMap id="VOResultMap" type="com.study.hrms.vo.EmployeeVO">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="em_name" jdbcType="VARCHAR" property="emName" />
+        <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+        <result column="sex" jdbcType="CHAR" property="sex" />
+        <result column="political_status" jdbcType="INTEGER" property="politicalStatus" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="education" jdbcType="INTEGER" property="education" />
+        <result column="university" jdbcType="VARCHAR" property="university" />
+        <result column="station" jdbcType="VARCHAR" property="station" />
+        <result column="salary_level" jdbcType="INTEGER" property="salaryLevel" />
+
+        <result column="emnum" jdbcType="VARCHAR" property="emnum" />
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        id,
+       	  	      	em_name,
+       	  	      	birthday,
+       	  	      	sex,
+       	  	      	political_status,
+       	  	      	email,
+       	  	      	education,
+       	  	      	university,
+       	  	      	station,
+       	  	    	  	salary_level,
+       	  	      	emnum,
+       	  	    	  	dept,phone
+
+    </sql>
+    <insert id="insert" parameterType="com.study.hrms.entity.Employee">
+        insert into employee(
+            id,
+            em_name,
+            birthday,
+            sex,
+            political_status,
+            email,
+            education,
+            university,
+            station,
+            salary_level,
+            emnum,
+            dept,
+            phone
+        ) values (
+            #{id,jdbcType=INTEGER},
+            #{emName,jdbcType=VARCHAR},
+            #{birthday,jdbcType=VARCHAR},
+            #{sex,jdbcType=CHAR},
+            #{politicalStatus,jdbcType=INTEGER},
+            #{email,jdbcType=VARCHAR},
+            #{education,jdbcType=INTEGER},
+            #{university,jdbcType=VARCHAR},
+            #{station,jdbcType=VARCHAR},
+            #{salaryLevel,jdbcType=INTEGER},
+            #{emnum,jdbcType=VARCHAR},
+            #{dept,jdbcType=INTEGER},
+            #{phone,jdbcType=VARCHAR}
+        )
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.study.hrms.entity.Employee">
+        update employee
+        set
+            em_name = #{emName,jdbcType=VARCHAR},
+            birthday = #{birthday,jdbcType=VARCHAR},
+            sex = #{sex,jdbcType=CHAR},
+            political_status = #{politicalStatus,jdbcType=INTEGER},
+            email = #{email,jdbcType=VARCHAR},
+            education = #{education,jdbcType=INTEGER},
+            university = #{university,jdbcType=VARCHAR},
+            station = #{station,jdbcType=VARCHAR},
+            salary_level = #{salaryLevel,jdbcType=INTEGER},
+            emnum = #{emnum,jdbcType=VARCHAR},
+            dept = #{dept,jdbcType=INTEGER},
+            phone = #{phone,jdbcType=VARCHAR}
+        where
+            id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from employee
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="selectByEmployee" parameterType="com.study.hrms.qo.EmployeeQO" resultMap="VOResultMap">
+        select
+            em.id,em.em_name,em.birthday,em.sex,em.political_status,em.email,
+            em.education,em.university,em.station,em.salary_level,
+            em.emnum,em.phone,dept.deptname dept_name,dept.id deptId
+        from employee em
+        left join department dept
+        on em.dept = dept.id
+        where 1 = 1
+        <if test="emName != null and emName.length > 0">
+            and em.em_name like concat('%',#{emName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="phone != null and phone.length > 0">
+            and em.phone like concat('%',#{phone,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="emnum != null and emnum.length > 0">
+            and em.emnum like concat('%',#{emnum,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="dept != null">
+            and em.dept = #{dept,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from employee
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+</mapper>
