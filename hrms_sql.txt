@@ -1,0 +1,162 @@
+CREATE DATABASE hrms;
+USE hrms;
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(20) NOT NULL COMMENT '用户名',
+  `realname` varchar(45) DEFAULT NULL COMMENT '真实姓名',
+  `last_login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
+  `createtime` datetime DEFAULT NULL COMMENT '注册/创建时间',
+  `paword` varchar(32) NOT NULL COMMENT '密码',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+
+CREATE TABLE `employee` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `em_name` varchar(45) NOT NULL COMMENT '员工姓名',
+  `birthday` varchar(45) NOT NULL COMMENT '出生日期',
+  `sex` char(1) NOT NULL COMMENT '性别，F女，M男',
+  `political_status` int DEFAULT NULL COMMENT '政治面貌，0群众，1团员，2中共党员，3其他民主党派人士',
+  `email` varchar(45) DEFAULT NULL COMMENT '邮箱',
+  `education` int DEFAULT NULL COMMENT '学历，0无，1小学，2中学，3高中，4职高，5中专，6大专，7大专，8本科，9硕士，10博士',
+  `university` varchar(45) DEFAULT NULL COMMENT '毕业院校',
+  `station` varchar(45) DEFAULT NULL COMMENT '岗位',
+  `salary_level` int DEFAULT NULL COMMENT '薪资级别',
+  `emnum` varchar(45) NOT NULL COMMENT '工号',
+  `dept` int NOT NULL COMMENT '所属部门',
+ `phone` varchar(45) DEFAULT NULL COMMENT '电话',
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `emnum_UNIQUE` (`emnum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工表';
+
+CREATE TABLE `department` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `deptname` varchar(45) NOT NULL COMMENT '部门名称',
+  PRIMARY KEY (`id`),
+  `chargeman` int DEFAULT NULL COMMENT '负责人id',
+  UNIQUE KEY `deptname_UNIQUE` (`deptname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
+
+CREATE TABLE `worktime` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `check_time` datetime NOT NULL COMMENT '考勤时间',
+  `check_type` int NOT NULL COMMENT '0：上班考勤\n1：下班考勤',
+  `status` int NOT NULL COMMENT '打卡状态，0：正常，1：迟到，2：早退，3：外勤',
+  `employee_id` int NOT NULL COMMENT '对应员工id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考勤表';
+
+CREATE TABLE `salary` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `employee_id` int NOT NULL COMMENT '员工id',
+  `base_salary` double NOT NULL COMMENT '基础工资',
+  `merits_salary` double NOT NULL COMMENT '绩效',
+  `award_salary` double NOT NULL COMMENT '奖金',
+  `transport_subsidy` double NOT NULL COMMENT '交通补助',
+  `meal_subsidy` double NOT NULL COMMENT '餐补',
+  `phone_subsidy` double NOT NULL COMMENT '话费补助',
+  `insurance` double NOT NULL COMMENT '保险费',
+  `tax` double DEFAULT NULL COMMENT '个人所得税',
+  `other_subsidy` double DEFAULT NULL COMMENT '其他加发',
+  `other_cut` double DEFAULT NULL COMMENT '其他扣款',
+  `belong_month` varchar(45) NOT NULL COMMENT '所属月份',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工资表';
+
+
+
+// 原始密码：123456加密后密码串：e10adc3949ba59abbe56e057f20f883e
+INSERT INTO `user` (`username`, `realname`, `last_login_time`, `createtime`, `paword`)
+VALUES
+('zhangsan', '张三', '2024-08-09 08:00:00', '2024-01-01 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('lisi', '李四', '2024-08-09 09:00:00', '2024-01-02 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('wangwu', '王五', '2024-08-09 10:00:00', '2024-01-03 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('zhaoliu', '赵六', '2024-08-09 11:00:00', '2024-01-04 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('sunqi', '孙七', '2024-08-09 12:00:00', '2024-01-05 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('zhouba', '周八', '2024-08-09 13:00:00', '2024-01-06 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('wujiu', '吴九', '2024-08-09 14:00:00', '2024-01-07 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('lizhans', '李湛', '2024-08-09 15:00:00', '2024-01-08 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('hanxiao', '韩晓', '2024-08-09 16:00:00', '2024-01-09 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('tianjing', '田静', '2024-08-09 17:00:00', '2024-01-10 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('yangyang', '杨阳', '2024-08-09 18:00:00', '2024-01-11 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('liubing', '刘冰', '2024-08-09 19:00:00', '2024-01-12 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('zhangli', '张丽', '2024-08-09 20:00:00', '2024-01-13 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('wangmin', '王敏', '2024-08-09 21:00:00', '2024-01-14 12:00:00', 'e10adc3949ba59abbe56e057f20f883e'),
+('sunli', '孙力', '2024-08-09 22:00:00', '2024-01-15 12:00:00', 'e10adc3949ba59abbe56e057f20f883e');
+
+
+INSERT INTO `employee` (`em_name`, `birthday`, `sex`, `political_status`, `email`, `education`, `university`, `station`, `salary_level`, `emnum`, `dept`, `phone`)
+VALUES 
+('张伟', '1985-04-12', 'M', 0, 'zhangwei@example.com', 7, '北京大学', '软件工程师', 3, 'E001', 1, '13800138000'),
+('李娜', '1990-06-25', 'F', 1, 'lina@example.com', 6, '复旦大学', '市场专员', 2, 'E002', 2, '13800138001'),
+('王刚', '1988-08-30', 'M', 2, 'wanggang@example.com', 8, '清华大学', '项目经理', 4, 'E003', 3, '13800138002'),
+('赵丽', '1992-10-15', 'F', 3, 'zhaoli@example.com', 9, '上海交通大学', '财务主管', 3, 'E004', 4, '13800138003'),
+('陈鹏', '1980-12-22', 'M', 0, 'chenpeng@example.com', 10, '中国人民大学', '技术总监', 5, 'E005', 1, '13800138004'),
+('孙敏', '1987-03-05', 'F', 1, 'sunmin@example.com', 7, '武汉大学', '人事专员', 2, 'E006', 2, '13800138005'),
+('刘强', '1995-07-19', 'M', 2, 'liuqiang@example.com', 6, '中山大学', '客户经理', 3, 'E007', 3, '13800138006'),
+('周杰', '1983-11-09', 'M', 0, 'zhoujie@example.com', 8, '南京大学', '数据分析师', 4, 'E008', 4, '13800138007'),
+('吴霞', '1994-05-14', 'F', 1, 'wuxia@example.com', 6, '北京师范大学', '行政助理', 2, 'E009', 1, '13800138008'),
+('郑涛', '1986-09-28', 'M', 3, 'zhengtao@example.com', 9, '西安交通大学', '研发工程师', 4, 'E010', 2, '13800138009'),
+('钱丽', '1991-01-12', 'F', 0, 'qianli@example.com', 7, '哈尔滨工业大学', '销售主管', 3, 'E011', 3, '13800138010'),
+('马超', '1984-02-20', 'M', 1, 'machao@example.com', 8, '天津大学', '质量经理', 3, 'E012', 4, '13800138011'),
+('姜萍', '1989-04-08', 'F', 2, 'jiangping@example.com', 10, '厦门大学', '技术支持', 2, 'E013', 1, '13800138012'),
+('董强', '1993-07-26', 'M', 3, 'dongqiang@example.com', 6, '吉林大学', '产品经理', 4, 'E014', 2, '13800138013'),
+('唐玲', '1985-10-31', 'F', 0, 'tangling@example.com', 7, '四川大学', '行政主管', 3, 'E015', 3, '13800138014');
+
+
+INSERT INTO `department` (`deptname`, `chargeman`)
+VALUES 
+('研发部', 1),
+('市场部', 2),
+('财务部', 3),
+('技术部', 4),
+('人事部', 5),
+('销售部', 1),
+('客服部', 2),
+('质量部', 3),
+('行政部', 4),
+('产品部', 5),
+('数据部', 1),
+('培训部', 2),
+('法务部', 3),
+('采购部', 4),
+('物流部', 5);
+
+
+INSERT INTO `worktime` (`check_time`, `check_type`, `status`, `employee_id`)
+VALUES 
+('2024-08-01 09:00:00', 0, 0, 1),
+('2024-08-01 18:00:00', 1, 0, 1),
+('2024-08-01 09:05:00', 0, 1, 2),
+('2024-08-01 17:55:00', 1, 2, 2),
+('2024-08-01 09:00:00', 0, 0, 3),
+('2024-08-01 18:00:00', 1, 0, 3),
+('2024-08-01 09:00:00', 0, 0, 4),
+('2024-08-01 18:10:00', 1, 1, 4),
+('2024-08-01 09:00:00', 0, 0, 5),
+('2024-08-01 18:00:00', 1, 0, 5),
+('2024-08-01 09:00:00', 0, 0, 6),
+('2024-08-01 18:00:00', 1, 0, 6),
+('2024-08-01 09:00:00', 0, 0, 7),
+('2024-08-01 18:00:00', 1, 0, 7),
+('2024-08-01 09:00:00', 0, 0, 8);
+
+
+INSERT INTO `salary` (`employee_id`, `base_salary`, `merits_salary`, `award_salary`, `transport_subsidy`, `meal_subsidy`, `phone_subsidy`, `insurance`, `tax`, `other_subsidy`, `other_cut`, `belong_month`)
+VALUES 
+(1, 8000, 1000, 500, 200, 300, 100, 500, 200, 0, 0, '2024-08'),
+(2, 6000, 800, 400, 150, 250, 80, 400, 150, 0, 0, '2024-08'),
+(3, 10000, 1500, 800, 300, 400, 120, 800, 300, 0, 0, '2024-08'),
+(4, 7000, 900, 600, 200, 300, 90, 600, 200, 0, 0, '2024-08'),
+(5, 12000, 2000, 1000, 400, 500, 150, 1000, 400, 0, 0, '2024-08'),
+(6, 6500, 850, 450, 180, 270, 70, 450, 180, 0, 0, '2024-08'),
+(7, 7500, 1200, 600, 250, 350, 110, 600, 250, 0, 0, '2024-08'),
+(8, 9000, 1300, 700, 280, 320, 130, 700, 280, 0, 0, '2024-08'),
+(9, 5800, 700, 300, 160, 220, 60, 300, 160, 0, 0, '2024-08'),
+(10, 7000, 950, 500, 200, 270, 90, 500, 200, 0, 0, '2024-08'),
+(11, 6500, 800, 400, 150, 250, 70, 400, 150, 0, 0, '2024-08'),
+(12, 8000, 1000, 600, 220, 300, 100, 600, 220, 0, 0, '2024-08'),
+(13, 7000, 950, 500, 200, 280, 90, 500, 200, 0, 0, '2024-08'),
+(14, 7500, 1100, 600, 230, 300, 100, 600, 230, 0, 0, '2024-08'),
+(15, 9000, 1400, 700, 250, 320, 120, 700, 250, 0, 0, '2024-08');
+
