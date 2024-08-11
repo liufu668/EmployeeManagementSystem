@@ -122,51 +122,36 @@
                 , btn: ['保存', '取消'] //只是为了演示
                 , area: ['600px', '300px'] //宽高
                 ,closeBtn: 0
-                ,success: function (layero, index) {
-                    layero.addClass('addUser');
-                    layero.find('.layui-layer-btn0').attr({
-                        'lay-filter': 'addUserForm',
-                        'lay-submit': ''
-                    });
-                    form.render();
-                }
-                , yes: function (index, layero) {
-                    form.on('submit(addUserForm)',function (data) {
-                        var formData = form.val('addUserForm');//form lay-filter属性
-                        console.log(formData);
-                        var layerui = layer;
-                        var currentPage = userTable.config.page.curr;//获取当前页码
-                        $.ajax({
-                            url: "/user/add",
-                            type: "POST",
-                            data: JSON.stringify(formData),//传递json类型的参数
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (result) {
-                                if(result.code == COMMON_SUCCESS_CODE){
-                                    layerui.msg('操作成功');
-                                    userTable.reload({page: {curr: currentPage}})
-                                }else{
-                                    layerui.alert('操作失败', {icon: 2});
-                                }
-                                layerui.closeAll();
-                                $("#addUserForm")[0].reset();
-                                form.render();
+                , yes: function () {
+                    var formData = form.val('addUserForm');//form lay-filter属性
+                    console.log(formData);
+                    var layerui = layer;
+                    var currentPage = userTable.config.page.curr;//获取当前页码
+                    $.ajax({
+                        url: "/user/add",
+                        type: "POST",
+                        data: JSON.stringify(formData),//传递json类型的参数
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if(result.code == COMMON_SUCCESS_CODE){
+                                layerui.msg('操作成功');
+                                userTable.reload({page: {curr: currentPage}})
+                            }else{
+                                layerui.alert('操作失败', {icon: 2});
                             }
-                        })
+                            layerui.closeAll();
+                            $("#addUserForm")[0].reset();
+                            form.render();
+                        }
                     })
+
                 }
                 , btn2: function () {
                     layer.closeAll();
                     $("#addUserForm")[0].reset();
                     form.render();
                 }
-            });
-            $(document).ready(function () {
-                $("#addUser").on("click", function () {
-                    active.addUser();
-
-                });
             });
         }
         //触发事件
