@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.hrms.mapper.DepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.study.hrms.entity.Department">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="deptname" jdbcType="VARCHAR" property="deptname" />
+        <result column="chargeman" jdbcType="INTEGER" property="chargeman" />
+    </resultMap>
+    <resultMap id="VOResultMap" type="com.study.hrms.vo.DepartmentVO">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="deptname" jdbcType="VARCHAR" property="deptname" />
+        <association property="chargeman" javaType="com.study.hrms.entity.Employee">
+            <result column="e_id" property="id" jdbcType="INTEGER"></result>
+            <result column="e_emname" property="emName" jdbcType="VARCHAR"></result>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        id,
+       	  	      	deptname,
+       	  	    	  	chargeman
+
+    </sql>
+    <insert id="insert" parameterType="com.study.hrms.entity.Department">
+        insert into department (
+            id,
+            deptname,
+            chargeman
+        ) values (
+            #{id,jdbcType=INTEGER},
+            #{deptname,jdbcType=VARCHAR},
+            #{chargeman,jdbcType=INTEGER}
+        )
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.study.hrms.entity.Department">
+        update department
+        set
+            deptname = #{deptname,jdbcType=VARCHAR},
+            chargeman = #{chargeman,jdbcType=INTEGER}
+        where
+            id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from department
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="list" parameterType="com.study.hrms.qo.DepartmentQO" resultMap="VOResultMap">
+        select dp.id,dp.deptname,em.id e_id,em.em_name e_emname
+        from department dp
+        left join employee em on dp.chargeman = em.id
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from department
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+</mapper>
